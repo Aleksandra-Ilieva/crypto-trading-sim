@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kraken Live Prices</title>
+    <link rel="stylesheet" th:href="@{css/style.css}">
+
+</head>
+<body>
+
+<header>
+    <nav class="navbar">
+        <div class="logo">
+            <a th:href="@{/crypto}">Kraken Live</a>
+        </div>
+        <ul class="nav-links">
+            <li><a th:href="@{/crypto}">Prices</a></li>
+            <li><a th:href="@{/account}">My Account</a></li>
+        </ul>
+    </nav>
+</header>
+
+<h1>Crypto Prices (Live)</h1>
+
+
+<div id="flash-message" th:if="${message}"
+     th:classappend="${message.contains('Successful') ? 'success-message' : (message.contains('failed') ? 'error-message' : '')}">
+    <p th:text="${message}"></p>
+</div>
+
+<table>
+    <thead>
+    <tr>
+        <th>Name</th>
+        <th>Pair</th>
+        <th>Bid Price</th>
+        <th>Ask Price</th>
+        <th>Buy/Sell</th>
+    </tr>
+    </thead>
+    <tbody id="crypto-table">
+    </tbody>
+</table>
+
+<script src="/js/KrakenApi.js"></script>
+<script src="/js/removeMessage.js"> </script>
+
+
+</body>
+</html>

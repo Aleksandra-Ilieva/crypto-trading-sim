@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Transaction History</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+
+<header>
+    <nav class="navbar">
+        <div class="logo">
+            <a th:href="@{/crypto}">Kraken Live</a>
+        </div>
+        <ul class="nav-links">
+            <li><a th:href="@{/crypto}">Prices</a></li>
+            <li th:text="'Balance: '+  ' $' + ${formattedBalance}"></li>
+        </ul>
+    </nav>
+</header>
+
+    <h1>Transaction History</h1>
+    <h3>Balance State: </h3>
+    <div th:text="${balanceState}"
+         th:classappend="${balanceState.contains('Profit') ? 'profit' : (balanceState.contains('Loss') ? 'loss' : '')}">
+    </div>
+
+
+<div class="table-container">
+    <table class="acc">
+        <thead>
+        <tr>
+
+            <th>Pair</th>
+            <th>Price</th>
+            <th>Quantity</th>
+            <th>Type</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="transaction : ${transactionHistoryDtos}">
+            <td th:text="${transaction.getCurrency().getPair()}"></td>
+            <td th:text="${transaction.price}"></td>
+            <td th:text="${transaction.quantity}"></td>
+            <td th:text="${transaction.transactionType.name()}"></td>
+        </tr>
+        </tbody>
+    </table>
+
+</div>
+
+<footer>
+    <div class="footer-reset">
+        <form action="/reset" method="POST" style="display:inline;">
+            <button class="reset-button" type="submit">Reset My Account</button>
+        </form>
+    </div>
+</footer>
+</body>
+</html>
